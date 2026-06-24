@@ -1,0 +1,17 @@
+type: workspace
+model: workspace
+id: wk_RL4iaRBF6b
+createdAt: 2026-06-24T20:34:20.529996500
+updatedAt: 2026-06-24T20:34:20.530256200
+authentication: {}
+authenticationType: null
+description: ''
+headers: []
+name: go-api-check-links
+encryptionKeyChallenge: null
+settingValidateCertificates: true
+settingFollowRedirects: true
+settingRequestTimeout: 0
+settingDnsOverrides: []
+settingSendCookies: true
+settingStoreCookies: true

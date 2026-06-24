@@ -1,0 +1,104 @@
+type: http_request
+model: http_request
+id: rq_PcfRBVS7uc
+createdAt: 2026-06-23T20:19:21.624257
+updatedAt: 2026-06-24T20:35:31.196576800
+workspaceId: wk_RL4iaRBF6b
+folderId: null
+authentication: {}
+authenticationType: null
+body:
+  text: |-
+    {
+      "urls": [
+        "https://google.com",
+        "https://www.google.com",
+        "https://github.com",
+        "https://api.github.com",
+        "https://docs.github.com",
+        "https://gitlab.com",
+        "https://bitbucket.org",
+        "https://stackoverflow.com",
+        "https://serverfault.com",
+        "https://superuser.com",
+        "https://news.ycombinator.com",
+        "https://reddit.com",
+        "https://www.reddit.com/r/golang",
+        "https://x.com",
+        "https://www.linkedin.com",
+        "https://www.facebook.com",
+        "https://www.instagram.com",
+        "https://www.youtube.com",
+        "https://youtube.com/watch?v=dQw4w9WgXcQ",
+        "https://www.twitch.tv",
+        "https://openai.com",
+        "https://platform.openai.com",
+        "https://chatgpt.com",
+        "https://developer.mozilla.org",
+        "https://golang.org",
+        "https://go.dev",
+        "https://pkg.go.dev",
+        "https://aws.amazon.com",
+        "https://console.aws.amazon.com",
+        "https://cloud.google.com",
+        "https://azure.microsoft.com",
+        "https://kubernetes.io",
+        "https://helm.sh",
+        "https://docker.com",
+        "https://hub.docker.com",
+        "https://jsonplaceholder.typicode.com/posts",
+        "https://jsonplaceholder.typicode.com/users/1",
+        "https://dummyjson.com/products",
+        "https://dummyjson.com/users?limit=10",
+        "https://reqres.in/api/users?page=2",
+        "https://fakestoreapi.com/products",
+        "https://restcountries.com/v3.1/all",
+        "https://api.publicapis.org/entries",
+        "https://open-meteo.com",
+        "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41",
+        "http://example.com",
+        "http://example.com/test/path",
+        "https://example.org?q=golang",
+        "https://example.net/path/to/resource#section",
+        "https://subdomain.example.com",
+        "https://api.example.com/v1/users",
+        "https://staging-api.example.com/v2/auth/login",
+        "https://cdn.example.com/assets/image.png",
+        "https://foo.bar.example.co.uk/path",
+        "http://localhost",
+        "http://localhost:3000",
+        "http://localhost:8080/api/v1/users",
+        "http://127.0.0.1",
+        "http://127.0.0.1:5000/health",
+        "http://192.168.1.100",
+        "https://10.0.0.25/admin",
+        "https://user:password@example.com/path"
+      ]
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: fjxS3MPJrY
+method: POST
+name: links
+sortPriority: -1780159492059.0
+url: ${[ HOST ]}/check-links
+urlParameters: []
+settingSendCookies:
+  enabled: false
+  value: true
+settingStoreCookies:
+  enabled: false
+  value: true
+settingValidateCertificates:
+  enabled: false
+  value: true
+settingFollowRedirects:
+  enabled: false
+  value: true
+settingRequestTimeout:
+  enabled: false
+  value: 0
