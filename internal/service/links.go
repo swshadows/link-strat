@@ -1,18 +1,19 @@
 package links
 
 import (
+	"context"
 	"net/http"
 	"net/url"
 	"regexp"
-	"sync"
 	"time"
 
 	"github.com/go-chi/render"
 )
 
-type Link struct {
-	Url    string `json:"url"`
-	Status string `json:"status"`
+type LinkResponse struct {
+	Url     string `json:"url"`
+	Status  string `json:"status"`
+	IsAlive bool   `json:"is_alive"`
 }
 
 type LinkRequest struct {
@@ -23,9 +24,31 @@ type LinkHandler struct {
 	LinkRe *regexp.Regexp
 }
 
+const workers = 20
+
 func NewLinkHandler() *LinkHandler {
 	return &LinkHandler{
 		LinkRe: regexp.MustCompile(`(https?[^\s()<>\"']+)`),
+	}
+}
+
+func worker(ctx context.Context, jobs <-chan string, results chan<- LinkResponse, client *http.Client) {
+
+	for link := range jobs {
+		req, err := http.NewRequestWithContext(ctx, http.MethodHead, link, nil)
+		if err != nil {
+			results <- LinkResponse{Url: link, Status: err.Error(), IsAlive: false}
+			continue
+		}
+
+		resp, err := client.Do(req)
+		if err != nil {
+			results <- LinkResponse{Url: link, Status: err.Error(), IsAlive: false}
+			continue
+		}
+		resp.Body.Close()
+
+		results <- LinkResponse{Url: link, Status: resp.Status, IsAlive: true}
 	}
 }
 
@@ -52,29 +75,28 @@ func (h *LinkHandler) CheckLinks(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var linksResponse []Link
-
-	httpClient := &http.Client{Timeout: 10 * time.Second}
-	wg := &sync.WaitGroup{}
-	mu := &sync.Mutex{}
-	started := time.Now()
-	for _, link := range filteredLinks {
-		wg.Add(1)
-		go func(link string) {
-			defer wg.Done()
-			resp, err := httpClient.Get(link)
-			if err != nil {
-				return
-			}
-			defer resp.Body.Close()
-
-			mu.Lock()
-			linksResponse = append(linksResponse, Link{Url: link, Status: resp.Status})
-			mu.Unlock()
-		}(link)
+	client := http.Client{
+		Timeout: 5 * time.Second,
 	}
-	wg.Wait()
+	jobs := make(chan string)
+	results := make(chan LinkResponse)
+	for range workers {
+		go worker(r.Context(), jobs, results, &client)
+	}
+	go func() {
+		defer close(jobs)
+		for _, link := range filteredLinks {
+			jobs <- link
+		}
+	}()
 
+	linksResponse := make([]LinkResponse, 0, len(filteredLinks))
+	for range len(filteredLinks) {
+		linksResponse = append(linksResponse, <-results)
+	}
+
+	close(results)
+	started := time.Now()
 	render.JSON(w, r, map[string]any{"took_ms": time.Since(started).Milliseconds(), "ok": true, "links": linksResponse})
 }
 
