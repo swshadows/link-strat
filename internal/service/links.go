@@ -80,6 +80,8 @@ func (h *LinkHandler) CheckLinks(w http.ResponseWriter, r *http.Request) {
 	}
 	jobs := make(chan string)
 	results := make(chan LinkResponse)
+
+	started := time.Now()
 	for range workers {
 		go worker(r.Context(), jobs, results, &client)
 	}
@@ -96,7 +98,6 @@ func (h *LinkHandler) CheckLinks(w http.ResponseWriter, r *http.Request) {
 	}
 
 	close(results)
-	started := time.Now()
 	render.JSON(w, r, map[string]any{"took_ms": time.Since(started).Milliseconds(), "ok": true, "links": linksResponse})
 }
 
