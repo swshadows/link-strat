@@ -26,5 +26,8 @@ func NewRouter() *chi.Mux {
 
 	r.Post("/check-links", linkHandler.CheckLinks)
 
-	return r
+	main := chi.NewRouter()
+	main.Mount("/api", r)
+
+	return main
 }
