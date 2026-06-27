@@ -2,20 +2,19 @@
 
 Uma aplicação que checa códigos e status de uma lista de URLs
 
-# Como utilizar a aplicação
+## Como utilizar a aplicação
 
+> No final dos comandos, a aplicação fica disponível em `http://localhost:8080`
 
-## 🖐 Manualmente
+### 🖐 Manualmente
 
 1. Instale o [Go](https://go.dev/dl/)
-2. Execute o comando `go run cmd/api`
-3. Acesse a URL em `http://localhost:8080`
-4. Insira uma lista de URLs no campo de texto e clique em "Checar"
+2. Execute o comando `go run cmd`
 
-## 🐳 Docker
+### 🐳 Docker
 
 1. Instale o [Docker](https://docs.docker.com/get-docker/)
 2. Execute o comando `docker build -t link-strat .`
 3. Execute o comando `docker run -d -p 8080:8080 --name link-strat-app link-strat`
    1. Se o container já existe (Já rodou o comando anteriormente), use `docker start link-strat-app`
-4. Acesse a URL em `http://localhost:8080`
+
