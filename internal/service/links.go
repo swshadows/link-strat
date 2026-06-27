@@ -11,9 +11,10 @@ import (
 )
 
 type LinkResponse struct {
-	Url     string `json:"url"`
-	Status  string `json:"status"`
-	IsAlive bool   `json:"is_alive"`
+	Url        string `json:"url"`
+	Status     string `json:"status"`
+	StatusCode int    `json:"statusCode"`
+	IsAlive    bool   `json:"isAlive"`
 }
 
 type LinkRequest struct {
@@ -35,20 +36,20 @@ func NewLinkHandler() *LinkHandler {
 func worker(ctx context.Context, jobs <-chan string, results chan<- LinkResponse, client *http.Client) {
 
 	for link := range jobs {
-		req, err := http.NewRequestWithContext(ctx, http.MethodHead, link, nil)
+		req, err := http.NewRequestWithContext(ctx, http.MethodGet, link, nil)
 		if err != nil {
-			results <- LinkResponse{Url: link, Status: err.Error(), IsAlive: false}
+			results <- LinkResponse{Url: link, Status: err.Error(), StatusCode: 0, IsAlive: false}
 			continue
 		}
 
 		resp, err := client.Do(req)
 		if err != nil {
-			results <- LinkResponse{Url: link, Status: err.Error(), IsAlive: false}
+			results <- LinkResponse{Url: link, Status: err.Error(), StatusCode: 0, IsAlive: false}
 			continue
 		}
 		resp.Body.Close()
 
-		results <- LinkResponse{Url: link, Status: resp.Status, IsAlive: true}
+		results <- LinkResponse{Url: link, Status: resp.Status, StatusCode: resp.StatusCode, IsAlive: true}
 	}
 }
 
@@ -98,7 +99,7 @@ func (h *LinkHandler) CheckLinks(w http.ResponseWriter, r *http.Request) {
 	}
 
 	close(results)
-	render.JSON(w, r, map[string]any{"took_ms": time.Since(started).Milliseconds(), "ok": true, "links": linksResponse})
+	render.JSON(w, r, map[string]any{"tookMs": time.Since(started).Milliseconds(), "ok": true, "urls": linksResponse})
 }
 
 func (h *LinkHandler) validateLink(lnk string) bool {

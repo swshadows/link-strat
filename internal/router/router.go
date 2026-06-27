@@ -28,6 +28,7 @@ func NewRouter() *chi.Mux {
 
 	main := chi.NewRouter()
 	main.Mount("/api", r)
+	main.Handle("/*", http.FileServer(http.Dir("./static")))
 
 	return main
 }

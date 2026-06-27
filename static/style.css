@@ -1,0 +1,134 @@
+:root {
+	--dark-color: #222;
+	--light-color: #ddd;
+
+	--primary-color: #991bff;
+
+	--info: #0000ff;
+	--error: #ff0000;
+	--error-2: #ff6600;
+	--warning: #ffcc00;
+	--success: #00ff00;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family:
+		system-ui,
+		-apple-system,
+		BlinkMacSystemFont,
+		"Segoe UI",
+		Roboto,
+		Oxygen,
+		Ubuntu,
+		Cantarell,
+		"Open Sans",
+		"Helvetica Neue",
+		sans-serif;
+}
+body {
+	background-color: var(--dark-color);
+	color: var(--light-color);
+	font-size: 62.5%;
+}
+.main {
+	gap: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.main h2 {
+	font-size: 1.5rem;
+	margin-top: 1rem;
+}
+.main textarea {
+	font-family: monospace;
+	width: 90%;
+	padding: 0.5rem;
+	border-radius: 10px;
+	outline: 0;
+	font-size: 1rem;
+	min-height: 10rem;
+	resize: vertical;
+}
+.main textarea:focus {
+	border: 1px solid var(--primary-color);
+}
+.main button {
+	background-color: var(--primary-color);
+	color: #fff;
+	padding: 0.5rem 1rem;
+	border-radius: 10px;
+	border: 1px solid var(--primary-color);
+	outline: 0;
+	font-size: 1rem;
+	cursor: pointer;
+	transition: 0.1s all;
+}
+.main button:hover {
+	background-color: #222;
+}
+.main button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	background-color: #eee;
+	color: #777;
+}
+
+.results {
+	display: flex;
+	gap: 1rem;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 1rem;
+}
+
+.results .data {
+	width: 90%;
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.data .url {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	align-items: center;
+	border: 1px solid;
+	border-color: #777;
+	border-radius: 10px;
+	padding: 0.5rem;
+}
+.data .url.not-ok {
+	border-color: var(--error);
+}
+.data .url:hover {
+	transform: scale(1.05);
+}
+.data .url a {
+	text-decoration: none;
+	color: #60c8e7;
+}
+.data .url .status-dot {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+}
+.data .url .status-dot.code-1 {
+	background-color: var(--info);
+}
+.data .url .status-dot.code-2 {
+	background-color: var(--success);
+}
+.data .url .status-dot.code-3 {
+	background-color: var(--warning);
+}
+.data .url .status-dot.code-4 {
+	background-color: var(--error-2);
+}
+.data .url .status-dot.code-5 {
+	background-color: var(--error);
+}

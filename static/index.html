@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>link-strat</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="main">
+			<h2>🔗 link-strat</h2>
+			<p>Checa códigos e status de uma lista de URLs</p>
+
+			<textarea id="links-textarea" placeholder="Colocar links aqui, separados linha a linha"></textarea>
+			<button onclick="checkLinks(this)">Checar</button>
+		</div>
+
+		<div class="results">
+			<span class="took-ms"></span>
+			<div class="data"></div>
+		</div>
+		<script src="script.js"></script>
+	</body>
+</html>
