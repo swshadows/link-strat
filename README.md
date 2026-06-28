@@ -9,7 +9,8 @@ Uma aplicação que checa códigos e status de uma lista de URLs
 ### 🖐 Manualmente
 
 1. Instale o [Go](https://go.dev/dl/)
-2. Execute o comando `go run cmd`
+2. Execute o comando `go mod download`
+3. Execute o comando `go run ./cmd/api`
 
 ### 🐳 Docker
 

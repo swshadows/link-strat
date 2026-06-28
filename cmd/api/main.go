@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"go-api/internal/router"
+	"link-strat/internal/router"
 	"net/http"
 )
 

@@ -1,4 +1,4 @@
-module go-api
+module link-strat
 
 go 1.26.4
 

@@ -1,7 +1,7 @@
 package router
 
 import (
-	links "go-api/internal/service"
+	links "link-strat/internal/service"
 	"net/http"
 	"time"
 
